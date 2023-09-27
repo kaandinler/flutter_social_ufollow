@@ -5,6 +5,7 @@ class HomeController extends GetxController {
   RxBool isDark = false.obs;
 
   void changeTheme() {
+    isDark.value = !isDark.value;
     Get.changeTheme(Get.isDarkMode ? AppTheme.instance.lightTheme : AppTheme.instance.darkTheme);
   }
 }

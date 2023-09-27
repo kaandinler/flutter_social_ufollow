@@ -14,6 +14,21 @@ class HomeView extends GetView<HomeController> {
         title: Text(FlavorConfig.instance.name),
         centerTitle: true,
       ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text('Theme'),
+              trailing: Obx(
+                () => Switch(
+                  value: controller.isDark.value,
+                  onChanged: (value) => controller.changeTheme(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: const Center(
         child: Text(
           'HomeView is working',

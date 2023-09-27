@@ -1,0 +1,24 @@
+name: Auto Merge
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Auto Merge
+        if: github.event.pull_request.user.login == 'GITHUB_USERNAME'
+        run: |
+          git checkout ${GITHUB_HEAD_REF}
+          git merge --ff-only FETCH_HEAD
+          git push origin HEAD:${GITHUB_BASE_REF}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
